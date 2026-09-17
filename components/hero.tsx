@@ -18,17 +18,17 @@ export function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
 
   return (
-    <section ref={ref} id="top" className="relative h-[100svh] w-full overflow-hidden">
+    <section ref={ref} id="top" className="relative h-[100svh] w-full overflow-hidden bg-ink">
       <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0">
         <Image
           src="/images/hero-dates.png"
-          alt="Glistening premium Persian Mazafati dates lit by warm golden light"
+          alt="Glistening premium Food King dates, lit by warm golden light"
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/40 to-ink" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/45 to-ink" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-transparent" />
       </motion.div>
 
@@ -40,17 +40,17 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.34em] text-gold"
+          className="mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.34em] text-gold-soft"
         >
           <span className="h-px w-10 bg-gold/60" />
-          Premium Persian Date Exports
+          Premium Food Products
         </motion.p>
 
-        <h1 className="max-w-5xl font-display text-[13vw] font-semibold leading-[0.92] tracking-tight text-cream sm:text-[10vw] md:text-[8.5rem]">
-          <MaskText text="The Crown" className="block" delay={0.4} />
+        <h1 className="max-w-5xl font-display text-[13vw] font-semibold leading-[0.92] tracking-tight text-cream sm:text-[10vw] md:text-[8rem]">
+          <MaskText text="Pure. Premium." className="block" delay={0.4} />
           <span className="block">
-            <span className="italic text-gold">
-              <MaskText text="of the Desert" delay={0.55} />
+            <span className="italic text-gold-soft">
+              <MaskText text="Perfect." delay={0.55} />
             </span>
           </span>
         </h1>
@@ -61,9 +61,9 @@ export function Hero() {
           transition={{ duration: 1, delay: 1 }}
           className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-cream/75 md:text-lg"
         >
-          Harvested the way it has been for centuries. Exported the way the modern world
-          demands. Food King supplies the finest Persian dates to importers, distributors and
-          gourmet retailers across the globe.
+          Food King supplies premium food products to importers, distributors and gourmet
+          retailers across the globe — led by our signature Persian dates, and growing into
+          pickles and new categories built on the same standard of quality.
         </motion.p>
 
         <motion.div

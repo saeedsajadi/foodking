@@ -6,8 +6,6 @@ import { MarketsMarquee } from '@/components/markets-marquee'
 import { Story } from '@/components/story'
 import { Journey } from '@/components/journey'
 import { Catalog } from '@/components/catalog'
-import { Quality } from '@/components/quality'
-import { Testimonial } from '@/components/testimonial'
 import { Wholesale } from '@/components/wholesale'
 import { SiteFooter } from '@/components/site-footer'
 
@@ -23,8 +21,6 @@ export default function Page() {
         <Story />
         <Journey />
         <Catalog />
-        <Quality />
-        <Testimonial />
         <Wholesale />
       </main>
       <SiteFooter />

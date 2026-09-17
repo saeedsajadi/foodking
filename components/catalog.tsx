@@ -2,20 +2,26 @@
 
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { categories, products, type Category } from '@/lib/products'
+import { categories, products } from '@/lib/products'
 import { ProductCard } from './product-card'
 import { MaskText, Reveal } from './reveal'
 
-type Filter = 'All' | Category
-const filters: Filter[] = ['All', ...categories]
+const ALL = 'All Products'
+const FEATURED = 'Featured'
+type Filter = typeof FEATURED | typeof ALL | (typeof categories)[number]
+
+const filters: Filter[] = [FEATURED, ...categories, ALL]
 
 export function Catalog() {
-  const [active, setActive] = useState<Filter>('All')
+  // Default view is curated, not the full catalog — keeps the page short
+  // as the product range grows toward 50-100+ items.
+  const [active, setActive] = useState<Filter>(FEATURED)
 
-  const shown = useMemo(
-    () => (active === 'All' ? products : products.filter((p) => p.category === active)),
-    [active],
-  )
+  const shown = useMemo(() => {
+    if (active === ALL) return products
+    if (active === FEATURED) return products.filter((p) => p.featured)
+    return products.filter((p) => p.category === active)
+  }, [active])
 
   return (
     <section id="catalog" className="mx-auto max-w-[110rem] px-5 py-28 sm:px-8 md:py-40">
@@ -25,15 +31,15 @@ export function Catalog() {
             <span className="h-px w-8 bg-gold/60" />
             The Catalog
           </p>
-          <h2 className="max-w-2xl font-display text-4xl font-semibold leading-[1.02] text-cream md:text-6xl">
-            <MaskText text="Every grade the" className="block" />
-            <MaskText text="palm can offer" className="block italic text-gold" delay={0.06} />
+          <h2 className="max-w-2xl font-display text-4xl font-semibold leading-[1.02] text-charcoal md:text-6xl">
+            <MaskText text="Quality across" className="block" />
+            <MaskText text="every product" className="block italic text-gold" delay={0.06} />
           </h2>
         </div>
         <Reveal delay={0.1}>
-          <p className="max-w-sm text-pretty text-sm leading-relaxed text-cream/60">
-            From glossy soft Mazafati to industrial-scale Zahedi and hand-finished confections —
-            all available for bulk export with full documentation.
+          <p className="max-w-sm text-pretty text-sm leading-relaxed text-charcoal-soft">
+            From our signature Persian dates to the categories we&apos;re growing into next —
+            every product is available for bulk enquiry with full documentation.
           </p>
         </Reveal>
       </div>
@@ -43,10 +49,10 @@ export function Catalog() {
           <button
             key={f}
             onClick={() => setActive(f)}
-            className={`rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-all duration-300 ${
+            className={`min-h-10 rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-all duration-300 ${
               active === f
                 ? 'border-gold bg-gold text-ink'
-                : 'border-ink-line/70 text-cream/65 hover:border-cream/50 hover:text-cream'
+                : 'border-line text-charcoal-soft hover:border-charcoal/40 hover:text-charcoal'
             }`}
           >
             {f}
