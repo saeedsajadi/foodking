@@ -8,12 +8,12 @@ export function SiteFooter() {
         <div className="grid gap-14 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center">
+              <span className="flex h-12 w-12 items-center justify-center">
                 <Image
                   src="/images/fk-logo-full-transparent.png"
                   alt="Food King crest"
-                  width={80}
-                  height={80}
+                  width={96}
+                  height={96}
                   className="h-full w-full object-contain"
                 />
               </span>

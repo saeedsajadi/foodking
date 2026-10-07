@@ -42,12 +42,12 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-[110rem] items-center justify-between px-5 py-3 sm:px-8 md:py-4">
         <a href="#top" className="group flex items-center gap-3" aria-label="Food King home">
-          <span className="relative flex h-11 w-11 items-center justify-center md:h-12 md:w-12">
+          <span className="relative flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
             <Image
               src="/images/fk-logo-full-transparent.png"
               alt="Food King crest"
-              width={96}
-              height={96}
+              width={112}
+              height={112}
               className="h-full w-full object-contain drop-shadow-[0_1px_3px_rgba(40,10,10,0.3)]"
               priority
             />
