@@ -66,8 +66,8 @@ export function Catalog() {
         className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       >
         <AnimatePresence mode="popLayout">
-          {shown.map((p, index) => (
-            <ProductCard key={index} product={p} />
+          {shown.map((p) => (
+            <ProductCard key={p.id} product={p} />
           ))}
         </AnimatePresence>
       </motion.div>

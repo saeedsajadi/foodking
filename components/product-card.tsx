@@ -13,9 +13,10 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
+      initial={{ opacity: 0, y: 24, scale: 0.92 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: false, margin: '-10% 0px -10% 0px' }}
+      exit={{ opacity: 0, y: -12, scale: 0.96 }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       className="group relative flex flex-col overflow-hidden rounded-sm border border-line bg-paper shadow-sm"
       onMouseEnter={() => setIsHovering(true)}
