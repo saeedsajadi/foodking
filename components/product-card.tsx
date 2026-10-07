@@ -1,10 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'motion/react'
 import type { Product } from '@/lib/products'
 
 export function ProductCard({ product }: { product: Product }) {
+  const [isHovering, setIsHovering] = useState(false)
+  const imageSrc = isHovering && product.hoverImage ? product.hoverImage : product.image
   const meta = [product.origin, product.packaging, product.info].filter(Boolean)
 
   return (
@@ -15,10 +18,12 @@ export function ProductCard({ product }: { product: Product }) {
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       className="group relative flex flex-col overflow-hidden rounded-sm border border-line bg-paper shadow-sm"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-paper-soft">
         <Image
-          src={product.image}
+          src={imageSrc}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
