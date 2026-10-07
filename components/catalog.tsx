@@ -26,6 +26,7 @@ export function Catalog() {
   return (
     <section id="catalog" className="mx-auto max-w-[110rem] px-5 py-28 sm:px-8 md:py-40 bg-paper border-y border-line">
       <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <Reveal delay={0.1}>
         <div>
           <p className="mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">
             <span className="h-px w-8 bg-gold/60" />
@@ -36,6 +37,7 @@ export function Catalog() {
             <MaskText text="every product" className="block italic text-gold" delay={0.06} />
           </h2>
         </div>
+        </Reveal>
         <Reveal delay={0.1}>
           <p className="max-w-sm text-pretty text-sm leading-relaxed text-charcoal-soft">
             From our signature Persian dates to the categories we&apos;re growing into next —
@@ -49,8 +51,7 @@ export function Catalog() {
           <button
             key={f}
             onClick={() => setActive(f)}
-            className={`min-h-10 rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-all duration-300 ${
-              active === f
+            className={`min-h-10 rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-all duration-300 ${active === f
                 ? 'border-gold bg-gold text-ink'
                 : 'border-line text-charcoal-soft hover:border-charcoal/40 hover:text-charcoal'
             }`}
@@ -65,8 +66,8 @@ export function Catalog() {
         className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       >
         <AnimatePresence mode="popLayout">
-          {shown.map((p) => (
-            <ProductCard key={p.id} product={p} />
+          {shown.map((p, index) => (
+            <ProductCard key={index} product={p} />
           ))}
         </AnimatePresence>
       </motion.div>

@@ -27,14 +27,18 @@ export function Wholesale() {
     <section id="wholesale" className="bg-paper-soft border-y border-line">
       <div className="mx-auto grid max-w-[110rem] gap-14 px-5 py-28 sm:px-8 md:py-40 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
         <div>
+          <Reveal delay={0.15}>
           <p className="mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">
             <span className="h-px w-8 bg-gold/60" />
             Wholesale & Export
           </p>
+          </Reveal>
+          <Reveal delay={0.2}>
           <h2 className="font-display text-4xl font-semibold leading-[1.03] text-charcoal md:text-6xl">
             <MaskText text="Let&apos;s move" className="block" />
             <MaskText text="quality together" className="block italic text-gold" delay={0.06} />
           </h2>
+          </Reveal>
           <Reveal delay={0.15}>
             <p className="mt-8 max-w-md text-pretty text-base leading-relaxed text-charcoal-soft">
               Tell us what you&apos;re looking for. Our export desk will respond with a

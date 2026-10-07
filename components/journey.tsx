@@ -41,11 +41,15 @@ export function Journey() {
     <section id="journey" className="relative bg-paper-soft border-y border-line">
       <div className="mx-auto flex w-full max-w-[110rem] items-end justify-between px-5 pt-24 pb-8 sm:px-8 md:hidden md:pt-0">
         <div>
-          <p className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">
-            <span className="h-px w-8 bg-gold/60" />
-            From Source to Table
-          </p>
-          <h2 className="font-display text-4xl font-semibold leading-none text-charcoal">The Journey</h2>
+          <Reveal x={-40} delay={0.1}>
+            <p className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">
+              <span className="h-px w-8 bg-gold/60" />
+              From Source to Table
+            </p>
+          </Reveal>
+          <Reveal x={-40} delay={0.15}>
+            <h2 className="font-display text-4xl font-semibold leading-none text-charcoal">The Journey</h2>
+          </Reveal>
         </div>
       </div>
 
@@ -61,7 +65,7 @@ export function Journey() {
                 sizes="100vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-ink via-ink/20 to-transparent" />
               <div className="absolute inset-0 flex flex-col justify-between p-7">
                 <span className="font-display text-5xl font-semibold text-gold-soft/90">{s.num}</span>
                 <div>
@@ -77,20 +81,26 @@ export function Journey() {
 
       {/* Desktop: immersive scroll-driven horizontal reveal, unchanged interaction */}
       <div ref={ref} className="relative hidden h-[380vh] md:block">
-        <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
+        <div className="sticky top-0 flex h-svh flex-col overflow-hidden">
           <div className="mx-auto flex w-full max-w-[110rem] items-end justify-between px-5 pt-24 pb-8 sm:px-8">
             <div>
-              <p className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">
-                <span className="h-px w-8 bg-gold/60" />
-                From Source to Table
-              </p>
-              <h2 className="font-display text-4xl font-semibold leading-none text-charcoal md:text-6xl">
-                The Journey
-              </h2>
+              <Reveal x={-40} delay={0.1}>
+                <p className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">
+                  <span className="h-px w-8 bg-gold/60" />
+                  From Source to Table
+                </p>
+              </Reveal>
+              <Reveal x={-40} delay={0.15}>
+                <h2 className="font-display text-4xl font-semibold leading-none text-charcoal md:text-6xl">
+                  The Journey
+                </h2>
+              </Reveal>
             </div>
-            <p className="hidden max-w-xs text-right text-sm text-charcoal-soft md:block">
-              Three stages of care stand between sourcing and your shelf.
-            </p>
+            <Reveal x={40} delay={0.2}>
+              <p className="hidden max-w-xs text-right text-sm text-charcoal-soft md:block">
+                Three stages of care stand between sourcing and your shelf.
+              </p>
+            </Reveal>
           </div>
 
           <div className="relative flex flex-1 items-center">
@@ -107,7 +117,7 @@ export function Journey() {
                     sizes="60vw"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-ink via-ink/20 to-transparent" />
                   <div className="absolute inset-0 flex flex-col justify-between p-7 md:p-9">
                     <span className="font-display text-6xl font-semibold text-gold-soft/90 md:text-7xl">
                       {s.num}

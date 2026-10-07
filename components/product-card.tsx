@@ -21,15 +21,15 @@ export function ProductCard({ product }: { product: Product }) {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-paper-soft">
+      <div className="relative aspect-4/3 overflow-hidden bg-paper-soft">
         <Image
           src={imageSrc}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+          className="object-cover transition-transform duration-900 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-ink/50 via-transparent to-transparent" />
         <span className="absolute left-4 top-4 rounded-full border border-cream/30 bg-ink/50 px-3 py-1 text-[0.6rem] font-medium uppercase tracking-[0.18em] text-cream backdrop-blur">
           {product.category}
         </span>
