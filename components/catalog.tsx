@@ -24,7 +24,7 @@ export function Catalog() {
   }, [active])
 
   return (
-    <section id="catalog" className="mx-auto max-w-[110rem] px-5 py-28 sm:px-8 md:py-40">
+    <section id="catalog" className="mx-auto max-w-[110rem] px-5 py-28 sm:px-8 md:py-40 bg-paper border-y border-line">
       <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">

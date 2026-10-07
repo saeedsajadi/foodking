@@ -24,7 +24,7 @@ export function Wholesale() {
   }
 
   return (
-    <section id="wholesale" className="border-t border-line bg-paper-soft/60">
+    <section id="wholesale" className="bg-paper-soft border-y border-line">
       <div className="mx-auto grid max-w-[110rem] gap-14 px-5 py-28 sm:px-8 md:py-40 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
         <div>
           <p className="mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">

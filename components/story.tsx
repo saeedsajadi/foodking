@@ -14,7 +14,7 @@ export function Story() {
   const imageY = useTransform(scrollYProgress, [0, 1], ['-12%', '12%'])
 
   return (
-    <section id="story" ref={ref} className="relative mx-auto max-w-[110rem] px-5 py-28 sm:px-8 md:py-40">
+    <section id="story" ref={ref} className="relative mx-auto max-w-[110rem] px-5 py-28 sm:px-8 md:py-40 bg-paper border-t border-line">
       <div className="grid items-center gap-12 md:grid-cols-2 md:gap-20">
         <div className="relative">
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm">

@@ -38,7 +38,7 @@ export function Journey() {
   const progress = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
 
   return (
-    <section id="journey" className="relative bg-paper-soft/60">
+    <section id="journey" className="relative bg-paper-soft border-y border-line">
       <div className="mx-auto flex w-full max-w-[110rem] items-end justify-between px-5 pt-24 pb-8 sm:px-8 md:hidden md:pt-0">
         <div>
           <p className="mb-4 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-gold">
