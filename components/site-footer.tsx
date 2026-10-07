@@ -10,7 +10,7 @@ export function SiteFooter() {
             <div className="flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center">
                 <Image
-                  src="/images/fk-emblem-transparent.png"
+                  src="/images/fk-logo-full-transparent.png"
                   alt="Food King crest"
                   width={80}
                   height={80}

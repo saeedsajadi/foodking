@@ -44,7 +44,7 @@ export function SiteHeader() {
         <a href="#top" className="group flex items-center gap-3" aria-label="Food King home">
           <span className="relative flex h-11 w-11 items-center justify-center md:h-12 md:w-12">
             <Image
-              src="/images/fk-emblem-transparent.png"
+              src="/images/fk-logo-full-transparent.png"
               alt="Food King crest"
               width={96}
               height={96}
