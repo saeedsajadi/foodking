@@ -1,3 +1,6 @@
+'use client'
+
+import { useRef } from 'react'
 import { SmoothScroll } from '@/components/smooth-scroll'
 import { CustomCursor } from '@/components/custom-cursor'
 import { SiteHeader } from '@/components/site-header'
@@ -10,13 +13,15 @@ import { Wholesale } from '@/components/wholesale'
 import { SiteFooter } from '@/components/site-footer'
 
 export default function Page() {
+  const heroRef = useRef<HTMLDivElement>(null)
+
   return (
     <>
       <SmoothScroll />
       <CustomCursor />
-      <SiteHeader />
+      <SiteHeader heroRef={heroRef} />
       <main>
-        <Hero />
+        <Hero ref={heroRef} />
         <MarketsMarquee />
         <Story />
         <Journey />

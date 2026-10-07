@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react'
 
 const links = [
   { label: 'Story', href: '#story' },
@@ -11,9 +11,22 @@ const links = [
   { label: 'Wholesale', href: '#wholesale' },
 ]
 
-export function SiteHeader() {
+interface SiteHeaderProps {
+  heroRef: React.RefObject<HTMLDivElement>
+}
+
+export function SiteHeader({ heroRef }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  // Use window scroll progress for header logo animation
+  const { scrollY } = useScroll()
+
+  // Header logo animation - starts invisible/small, grows to normal size as hero logo shrinks
+  // Synchronized with hero logo: both animate from scrollY 0-400
+  const headerLogoScale = useTransform(scrollY, [0, 200, 400], [0.15, 0.5, 1])
+  const headerLogoOpacity = useTransform(scrollY, [0, 200, 400], [0, 0.3, 1])
+  const headerLogoY = useTransform(scrollY, [0, 200, 400], ['-20px', '-5px', '0px'])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -42,7 +55,15 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-[110rem] items-center justify-between px-5 py-3 sm:px-8 md:py-4">
         <a href="#top" className="group flex items-center gap-3" aria-label="Food King home">
-          <span className="relative flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
+          <motion.span
+            style={{
+              scale: headerLogoScale,
+              opacity: headerLogoOpacity,
+              y: headerLogoY,
+            }}
+            className="relative flex h-12 w-12 items-center justify-center md:h-14 md:w-14"
+            initial={false}
+          >
             <Image
               src="/images/fk-logo-full-transparent.png"
               alt="Food King crest"
@@ -51,10 +72,17 @@ export function SiteHeader() {
               className="h-full w-full object-contain drop-shadow-[0_1px_3px_rgba(40,10,10,0.3)]"
               priority
             />
-          </span>
-          <span className={`font-display text-lg font-semibold tracking-[0.2em] ${scrolled ? 'text-burgundy' : 'text-cream'}`}>
+          </motion.span>
+          <motion.span
+            style={{
+              opacity: headerLogoOpacity,
+              y: headerLogoY,
+            }}
+            className={`font-display text-lg font-semibold tracking-[0.2em] ${scrolled ? 'text-burgundy' : 'text-cream'}`}
+            initial={false}
+          >
             FOOD&nbsp;KING
-          </span>
+          </motion.span>
         </a>
 
         <nav className="hidden items-center gap-9 md:flex">

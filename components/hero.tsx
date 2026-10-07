@@ -1,12 +1,13 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, forwardRef } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { MaskText } from './reveal'
 
-export function Hero() {
-  const ref = useRef<HTMLDivElement>(null)
+export const Hero = forwardRef<HTMLDivElement, {}>((_, ref) => {
+  // Use window scrollY for synchronization with header logo animation
+  const { scrollY } = useScroll()
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
@@ -16,6 +17,19 @@ export function Hero() {
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.18])
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '40%'])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+
+  // Logo animation transforms - synchronized with header logo using window scrollY
+  // Header logo animates from scrollY 0-400, so hero logo should animate in same range
+  // Hero logo is centered in hero section (absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2)
+  // Hero section scrolls up with page, so logo center moves up by scrollY pixels
+  // At scrollY=0: hero section top=0, logo center at viewport 50% (295.5px)
+  // At scrollY=400: hero section top=-400, logo center at viewport -104.5px
+  // Target header logo center: ~60px from left, ~44px from top
+  // Lower the final logoY value to move the logo higher; raise it to move lower.
+  const logoScale = useTransform(scrollY, [0, 200, 400], [1, 0.5, 0.2])
+  const logoY = useTransform(scrollY, [0, 200, 400], ['0%', '5vh', '8vh'])
+  const logoX = useTransform(scrollY, [0, 200, 400], ['0%', '-22vw', '-44.0vw'])
+  const logoOpacity = useTransform(scrollY, [200, 400], [1, 0])
 
   return (
     <section ref={ref} id="top" className="relative h-[100svh] w-full overflow-hidden bg-ink">
@@ -32,59 +46,31 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-transparent" />
       </motion.div>
 
+      {/* Large centered logo - positioned in the center of hero */}
+      <motion.div
+        style={{
+          y: logoY,
+          x: logoX,
+          scale: logoScale,
+          opacity: logoOpacity,
+        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none"
+        initial={false}
+      >
+        <Image
+          src="/images/fk-logo-full-transparent.png"
+          alt="Food King crest"
+          width={280}
+          height={280}
+          className="h-[280px] w-[280px] object-contain drop-shadow-[0_4px_20px_rgba(40,10,10,0.4)]"
+          priority
+        />
+      </motion.div>
+
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 mx-auto flex h-full max-w-[110rem] flex-col justify-end px-5 pb-16 sm:px-8 md:pb-24"
+        className="relative z-10 mx-auto flex h-full max-w-[110rem] flex-col justify-center px-5 pb-16 sm:px-8 md:pb-24"
       >
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.34em] text-gold-soft"
-        >
-          <span className="h-px w-10 bg-gold/60" />
-          Premium Food Products
-        </motion.p>
-
-        <h1 className="max-w-5xl font-display text-[13vw] font-semibold leading-[0.92] tracking-tight text-cream sm:text-[10vw] md:text-[8rem]">
-          <MaskText text="Pure. Premium." className="block" delay={0.4} />
-          <span className="block">
-            <span className="italic text-gold-soft">
-              <MaskText text="Perfect." delay={0.55} />
-            </span>
-          </span>
-        </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-cream/75 md:text-lg"
-        >
-          Food King supplies premium food products to importers, distributors and gourmet
-          retailers across the globe — led by our signature Persian dates, and growing into
-          pickles and new categories built on the same standard of quality.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.15 }}
-          className="mt-10 flex flex-wrap items-center gap-4"
-        >
-          <a
-            href="#catalog"
-            className="rounded-full bg-gold px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-ink transition-transform duration-300 hover:scale-[1.03]"
-          >
-            Explore the Catalog
-          </a>
-          <a
-            href="#wholesale"
-            className="rounded-full border border-cream/25 px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-cream transition-colors duration-300 hover:border-cream/70"
-          >
-            Become a Buyer
-          </a>
-        </motion.div>
       </motion.div>
 
       <motion.div
@@ -104,4 +90,4 @@ export function Hero() {
       </motion.div>
     </section>
   )
-}
+})
