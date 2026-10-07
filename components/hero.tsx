@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, forwardRef } from 'react'
+import { useRef, forwardRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { MaskText } from './reveal'
@@ -31,20 +31,82 @@ export const Hero = forwardRef<HTMLDivElement, {}>((_, ref) => {
   const logoX = useTransform(scrollY, [0, 200, 400], ['0%', '-22vw', '-44.0vw'])
   const logoOpacity = useTransform(scrollY, [200, 400], [1, 0])
 
+  // Slideshow state
+  const slides = [
+    '/images/hero-dates.png',
+    '/images/date-amber.png',
+    '/images/date-coated.png'
+  ]
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  // Auto-advance slides every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const goToNextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
+  }
+
+  const goToPreviousSlide = () => {
+    setCurrentSlide((prev) => (prev + slides.length - 1) % slides.length)
+  }
+
+  // Slide fade variants
+  const slideVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8, ease: 'easeInOut' } }
+  }
+
   return (
     <section ref={ref} id="top" className="relative h-[100svh] w-full overflow-hidden bg-ink">
-      <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0">
-        <Image
-          src="/images/hero-dates.png"
-          alt="Glistening premium Food King dates, lit by warm golden light"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/45 to-ink" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-transparent" />
-      </motion.div>
+      {/* Slideshow container - outside the scroll-transformed div */}
+      <div className="absolute inset-0 z-10">
+        {/* Slides */}
+        <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0">
+          {slides.map((slide, index) => (
+            <motion.div
+              key={index}
+              initial={index === currentSlide ? 'visible' : 'hidden'}
+              animate={index === currentSlide ? 'visible' : 'hidden'}
+              variants={slideVariants}
+              className="absolute inset-0"
+            >
+              <Image
+                src={slide}
+                alt={`Food King premium dates slide ${index + 1}`}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+        
+        {/* Gradient overlays - pointer-events-none so they don't block clicks */}
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/45 to-ink pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-transparent pointer-events-none" />
+      </div>
+
+      {/* Navigation arrows - positioned directly in section, below header */}
+      <button
+        onClick={goToPreviousSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-ink/60 hover:bg-ink/80 text-cream transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] focus:outline-none focus:ring-2 focus:ring-gold active:scale-95 cursor-pointer"
+        aria-label="Previous slide"
+      >
+        <span className="text-3xl font-bold text-cream">‹</span>
+      </button>
+      <button
+        onClick={goToNextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-ink/60 hover:bg-ink/80 text-cream transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] focus:outline-none focus:ring-2 focus:ring-gold active:scale-95 cursor-pointer"
+        aria-label="Next slide"
+      >
+        <span className="text-3xl font-bold text-cream">›</span>
+      </button>
 
       {/* Large centered logo - positioned in the center of hero */}
       <motion.div
@@ -60,9 +122,9 @@ export const Hero = forwardRef<HTMLDivElement, {}>((_, ref) => {
         <Image
           src="/images/fk-logo-full-transparent.png"
           alt="Food King crest"
-          width={280}
-          height={280}
-          className="h-[280px] w-[280px] object-contain drop-shadow-[0_4px_20px_rgba(40,10,10,0.4)]"
+          width={448}
+          height={448}
+          className="h-[28rem] w-[28rem] object-contain drop-shadow-[0_4px_20px_rgba(40,10,10,0.4)]"
           priority
         />
       </motion.div>
