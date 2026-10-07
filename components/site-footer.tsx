@@ -1,7 +1,39 @@
 import Image from 'next/image'
-import { MaskText } from './reveal'
+import { motion, useScroll, useTransform } from 'motion/react'
+import { useRef, useEffect, useState } from 'react'
 
 export function SiteFooter() {
+  const footerRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ['start end', 'end start'],
+  })
+
+  const logoScale = useTransform(scrollYProgress, [0, 1], [0.5, 1])
+  const logoOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current)
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current)
+      }
+    }
+  }, [])
+
   return (
     <footer className="border-t border-ink-line/60 bg-ink">
       <div className="mx-auto max-w-[110rem] px-5 py-20 sm:px-8">
@@ -46,10 +78,24 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 overflow-hidden">
-          <p className="font-display text-[15vw] font-semibold leading-none text-cream/[0.06] md:text-[11rem]">
-            <MaskText text="FOOD KING" />
-          </p>
+        <div ref={footerRef} className="mt-16 overflow-hidden">
+          <motion.div
+            style={{ scale: logoScale, opacity: logoOpacity }}
+            className="flex justify-center"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            <Image
+              src="/images/fk-logo-full-transparent.png"
+              alt="Food King crest"
+              width={448}
+              height={448}
+              className="h-[28rem] w-[28rem] object-contain drop-shadow-[0_4px_20px_rgba(40,10,10,0.4)]"
+              priority
+            />
+          </motion.div>
         </div>
 
         <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-ink-line/60 pt-8 text-xs text-cream/40 sm:flex-row sm:items-center">
