@@ -30,7 +30,7 @@ export function Journey() {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start start', 'end end'],
+    offset: ['start start', '320% end'],
   })
 
   // Desktop only: move the horizontal track. 3 panels -> translate to show all.
